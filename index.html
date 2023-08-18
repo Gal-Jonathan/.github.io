@@ -1,0 +1,642 @@
+<html>
+  <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gal & Jonathan</title>
+<script>
+  const whatToDoContentMsg = 'תביאו את זה ואת זה תודה';
+  const whatToTimling = 'מה בלוז';
+  const register = 'אישור הגעה';
+  const goodToKnowHeader = 'כדאי לדעת';
+  const goodToKnowBody = [' *','*','*'];
+  const whatToBringHeader = 'מה להביא';
+  const whatToBringBody = ['אל תוש','כובע','מטען',' קרם הגנה','בגד ים', 'מגבת', 'כפכפים למקלחת' ,':) בגדים יפים לטקס','בגדים ארוכים לערב','פנס','שמיכה' ,'כרית','מצעים','כלי רחצה'];
+  const HowToGetThereHeader = 'איך להגיע';
+
+  const HowToGetThereBody = {
+      details: '',
+        methods: [{icon: 'assets/waze.png', link: 'https://waze.com/ul/hsv95tquwu'},
+            {icon: 'assets/maps.png', link: 'https://goo.gl/maps/tf8dZeZsyob53AMk9', width: 'unset', height: '7vh'},
+        ]}
+
+
+  const bodyGoodToKnow= [{time: '*', content: 'בחושה יש אור, שקע חשמל ומזרונים. צריך להביא מצעים, כרית ושמיכה'},
+      {time: '*', content: 'שירותים ומקלחות משותפים ממוקמים במרכז כפר המטיילים (ראו במפה)'},
+      {time: '*', content: 'בסמוך לאירוע נעדכן באיזה חושה אתם (2-4 אנשים בחושה)'},
+      {time: '*', content: 'אם יש לכם כיסאות מתקפלים נשמח שתביאו (למדורה בערב)'},
+      {time: '*', content: 'מתנות אפשר בביט או בפייבוקס (לא תיהיה כספת למתנות)'},
+  ];
+
+      const timeLineShihi= [
+      {time: '12:00', content: 'נפגשים | יין.שכשוכיות.נוף'},
+      {time: '13:00', content: 'ארוחת צהריים | בופה חלבי'},
+      {time: '15:00', content: 'זמן חופשי | צ׳ק אין.התארגנות לטקס'},
+      {time: '16:00', content: 'התכנסות לטקס | קוקטיילים בבר'},
+      {time: '16:30', content: 'טקס'},
+      {time: '17:00', content: 'ריקודים'},
+      {time: '19:00', content: 'ארוחת ערב | על האש גם לצמחונים'},
+      {time: '20:00', content: 'אפטר פארטי | מדורה'},
+  ];
+  const timeLineShabat = [{time: '8:00', content: 'ארוחת בוקר | ג׳חנון ועוד'},
+      {time: '10:00', content: 'צי׳ל שכשוכיות'}]
+  const bodyTimling = [timeLineShihi, timeLineShabat];
+
+function onClick(contentObj){
+      const {type} = contentObj
+        if (type == whatToBringHeader){
+            renderWhatToBring(contentObj);
+        } else if (type == whatToTimling){
+            renderTimeLine(contentObj);
+        } else if (type == goodToKnowHeader){
+            renderGoodToKnow(contentObj);
+        } else if (type == register){
+            renderRegister(contentObj);
+        } else if (type == HowToGetThereHeader){
+            renderHowToGetThere(contentObj);
+        }
+  const modal =  window.document.getElementById('modal');
+  modal.style.visibility = 'visible';
+}
+
+function renderHowToGetThere(contentObj){
+    const {body, header } = contentObj;
+    const { details, methods} = body
+    const modalHeaderElement = window.document.getElementById('modalHeader');
+    const modalBodyElement = window.document.getElementById('modalBody');
+    const nodeHeader = document.createTextNode(details);
+    const line1 = window.document.createElement('div');
+    line1.innerText = '.המקום - כפר המטיילים מצוקי דרגות';
+    const line2 = window.document.createElement('div');
+    line2.innerText = ':יש 2 דרכים להגיע';
+    line2.className = 'modalLine';
+    const line3 = window.document.createElement('div');
+    line3.innerText = 'הדרך הקצרה: דרך ירושלים | דרך צומת אלמוג | שעה וחצי מהמרכז'
+    line3.className = 'modalLine';
+    const line4 = window.document.createElement('div');
+    line4.className = 'modalLine';
+    line4.innerText = ' הדרך הארוכה: דרך ערד | כשעתיים וחצי מהמרכז'
+
+
+
+    modalBodyElement.appendChild(nodeHeader);
+
+    modalBodyElement.appendChild(line1);
+    modalBodyElement.appendChild(line2);
+    modalBodyElement.appendChild(line3);
+    modalBodyElement.appendChild(line4);
+
+    const headerElem = window.document.createElement('div');
+    headerElem.innerText = header;
+    modalHeaderElement.appendChild(headerElem);
+    const rowsContainer = window.document.createElement('div');
+    rowsContainer.className = 'rowsContainer';
+    const methodsContainer = window.document.createElement('div');
+    methodsContainer.className = 'methodsContainer';
+    methods.forEach((method)=>{
+        const row = window.document.createElement('div');
+
+        row.className = 'rowGetThere row';
+
+        const aContent = window.document.createElement('a');
+        aContent.href = method.link;
+        const img = document.createElement('img');
+        img.src = method.icon;
+        if (method.width) {
+            img.style.width = method.width;
+        }
+        if (method.height) {
+            img.style.height = method.height;
+        }
+        img.className = 'howToGetThereIconMethod';
+        aContent.appendChild(img);
+        row.appendChild(aContent);
+        methodsContainer.appendChild(row);
+    })
+    rowsContainer.appendChild(methodsContainer);
+    rowsContainer.appendChild(createLocation());
+    modalBodyElement.appendChild(rowsContainer);
+}
+
+function createLocation(){
+    const container = window.document.createElement('div');
+    const description = window.document.createElement('div');
+    description.innerText = 'כשהגעתם לכפר, לפתיחת השער הצהוב, הזינו את הקוד (קוד כניסה ...), המשיכו עם הכביש השמאלי, עד שתגיעו לחנייה - ראו מפה. מחכים לכם'
+    description.style = 'margin-bottom: 2vh;'
+    container.className = 'locationContainer';
+    const img = document.createElement('img');
+    img.src = 'assets/mezokiMap.png';
+    img.className = 'imgLocation';
+    container.appendChild(description);
+    container.appendChild(img);
+    return container;
+}
+
+function renderRegister(){
+
+}
+
+function renderGoodToKnow(contentObj){
+        const {header, body } = contentObj;
+        const modalHeaderElement = window.document.getElementById('modalHeader');
+        const nodeHeader = document.createTextNode(header);
+        modalHeaderElement.appendChild(nodeHeader);
+        body.forEach((whatToDo)=>{
+            const {time, content} = whatToDo;
+            const row = window.document.createElement('div');
+            row.className = 'row';
+
+            const divContent = window.document.createElement('div');
+            divContent.className = 'contentRow goodToKnow';
+            const nodeContent = document.createTextNode(content);
+            divContent.appendChild(nodeContent);
+            row.appendChild(divContent);
+
+            const divTime = window.document.createElement('div');
+            const nodeTime = document.createTextNode(time);
+            divTime.appendChild(nodeTime);
+            row.appendChild(divTime);
+
+            const modalBodyElement = window.document.getElementById('modalBody');
+            modalBodyElement.appendChild(row);
+        })
+    }
+
+function renderWhatToBring(contentObj){
+    const {header, body } = contentObj;
+    const modalHeaderElement = window.document.getElementById('modalHeader');
+    const nodeHeader = document.createTextNode(header);
+    modalHeaderElement.appendChild(nodeHeader);
+
+    body.forEach((whatToBring)=>{
+        const row = window.document.createElement('div');
+        row.className = 'row';
+        const input = window.document.createElement('input');
+        input.type = 'checkbox';
+
+
+
+        const divContent = window.document.createElement('div');
+        divContent.className = 'contentRow';
+        const nodeContent = document.createTextNode(whatToBring);
+        input.value = whatToBring;
+        input.style = 'width: 4vw';
+
+        divContent.appendChild(nodeContent);
+        row.appendChild(divContent);
+        row.appendChild(input);
+
+        const modalBodyElement = window.document.getElementById('modalBody');
+        modalBodyElement.appendChild(row);
+    })
+}
+
+function renderTimeLine(contentObj){
+    const {header, body } = contentObj;
+    const timeLineFirstDay = body[0];
+    const timeLineSecondDay = body[1];
+    const modalHeaderElement = window.document.getElementById('modalHeader');
+    const nodeHeader = document.createTextNode(header);
+    modalHeaderElement.appendChild(nodeHeader);
+
+    const shihi = window.document.createElement('div');
+    shihi.innerText = 'שישי';
+    shihi.className = 'day';
+    const modalBodyElement = window.document.getElementById('modalBody');
+    modalBodyElement.appendChild(shihi);
+    timeLineFirstDay.forEach((whatToDo)=>{
+        renderOneDay(whatToDo);
+    })
+    const shabat = window.document.createElement('div');
+    shabat.innerText = 'שבת';
+    shabat.className = 'day';
+    modalBodyElement.appendChild(shabat);
+    timeLineSecondDay.forEach((whatToDo)=> {
+        renderOneDay(whatToDo);
+    })
+}
+
+function renderOneDay (whatToDo){
+    const {time, content} = whatToDo;
+    const row = window.document.createElement('div');
+    row.className = 'row';
+
+    const divContent = window.document.createElement('div');
+    divContent.className = 'contentRow';
+    const nodeContent = document.createTextNode(content);
+    divContent.appendChild(nodeContent);
+    row.appendChild(divContent);
+
+    const divTime = window.document.createElement('div');
+    const nodeTime = document.createTextNode(time);
+    divTime.appendChild(nodeTime);
+    row.appendChild(divTime);
+
+    const modalBodyElement = window.document.getElementById('modalBody');
+    modalBodyElement.appendChild(row);
+}
+function closeModal(){
+  const modalHeaderElement = window.document.getElementById('modalHeader');
+    const modalBodyElement = window.document.getElementById('modalBody');
+
+    modalHeaderElement.innerText = '';
+    modalBodyElement.innerHTML = '';
+    modal.style.visibility = 'hidden';
+}
+</script>
+  </head>
+ <body style="margin: 0;
+ display: flex;
+ flex-direction: column;
+overflow: hidden;">
+ <div class="mainPage">
+  <div class= "containerOurImg" style="">
+    <img class="ourImg" src="assets/weImage.png">
+
+  </div>
+  <div class="containerBtn" id="cntBtn">
+    <div class="header">
+      <p class="title" style="">
+        Gal & Jonathan
+    </p>
+    <p  class="subTitle" style="">
+      Our Wedding - 20.10.23
+    </p>
+    </div>
+          <a class="registerButton" href="https://forms.gle/QtJriNrepz9LSQJ66" style="text-decoration: none;
+          padding-bottom: 1.1vh;
+    color: black;" > אישור הגעה</a>
+<div class="bodyHomePage">
+  <div style="" onclick="onClick({type: whatToTimling,  header: whatToTimling, body: bodyTimling})" class="rowContent">
+    <p style="margin: 0">   מה בלוז </p>
+    <img src="./assets/Schedule.png" class="icon">
+  </div>
+  <div style="" onclick="onClick({type: whatToBringHeader, header: whatToBringHeader, body: whatToBringBody})" class="rowContent">
+      <p style="margin: 0"> מה להביא </p>
+    <img src="assets/Bring.png" class="icon">
+   </div>
+      <div style="" onclick="onClick({type: HowToGetThereHeader, header: HowToGetThereHeader, body: HowToGetThereBody})" class="rowContent">
+          <p style="margin: 0"> איך להגיע</p>
+          <img src="assets/Howtoget.png" class="icon">
+
+      </div>
+  <div style="" onclick="onClick({type: goodToKnowHeader,  header: goodToKnowHeader, body: bodyGoodToKnow})" class="rowContent">
+      <p style="margin: 0">  כדאי לדעת  </p>
+    <img src="assets/Important.png" class="icon">
+  </div>
+
+</div>
+
+  </div>
+ </div>
+ <img src="assets/bgImg3.png" class="bgImg1">
+ <img src="assets/cactus1.png" class="bgImg2">
+ </div>
+<!-- <div>
+    Gal & Jonathan
+ </div> !-->
+
+<div id="modal" class="modal modalHidden">
+  <div style="margin: 20px; margin-right: 4px">
+      <div class="navigation">
+          <div style="font-size: 26px; margin-bottom: 2px; font-family: sans-serif" onclick="closeModal()">
+              X
+          </div>
+      </div>
+        <div id="content" class="content">
+            <a class="modalHeader" id="modalHeader"></a>
+            <a class="modalBody" id="modalBody"></a>
+        </div>
+  </div>
+</div>
+
+
+</body>
+
+<style>
+    @font-face {
+    font-family: titleFont;
+    src: url(fonts/AmaticaSC-Regular.ttf);
+  }
+    @font-face {
+      font-family: bodyFont;
+      src: url(fonts/AmaticaSC-Regular.ttf);
+    }
+    @font-face {
+      font-family: subHeaderFont;
+      src: url(fonts/AmaticaSC-Regular.ttf);
+    }
+  .bodyHomePage{
+    display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+  }
+
+    .modalLine{
+        margin-bottom: 2vh;
+    }
+
+  .header{
+    text-align: center;
+    font-size: 38px;
+    margin-bottom: 4vh;
+  }
+
+  .mainPage{
+    display: flex;
+    flex-direction: column;
+      max-height: 100vh;
+      overflow: auto;
+  }
+
+.modalShow{
+  visibility: visible;
+}
+
+.subTitle{
+  font-family: subHeaderFont;
+  font-size: 3.0vh;
+  margin-top: 8px;
+  margin-bottom: 0px;
+}
+
+.contentRow{
+    flex-grow: 1;
+    padding-right: 30px;
+}
+.registerButton{
+    background-color: rgba(255, 255, 255, 0.15);
+    justify-content: center;
+    min-width: 60vw;
+    align-items: center;
+    font-size: 4vh;
+    display: flex;
+    flex-direction: row;
+    font-family: bodyFont;
+    margin-top: 0vh;
+    margin-bottom: 0vh;
+    border-style: solid;
+    border-width: 0.1px;
+    border-radius: 10px;
+    padding: 4px;
+    line-height: 5vh;
+}
+
+.methodsContainer{
+    margin-top: 1vh;
+    margin-bottom: 5vh;
+    display: flex;
+    justify-content: center;
+}
+.bgImg1 {
+  position: absolute;
+    width: 100%;
+    z-index: -1;
+    opacity: 55%;
+    bottom: 0;
+}
+    .bgImg2 {
+        position: absolute;
+        bottom: -2vh;
+        width: 35vw;
+        z-index: -1;
+        left: -10vw;
+        opacity: 35%;
+    }
+.icon{
+    margin-top: 0vh;
+    width: 10vh;
+}
+.snoopyImg{
+    position: absolute;
+    bottom: 0vh;
+    width: 40vw;
+    z-index: -1;
+    left: 0;
+}
+
+.registerIcon{
+    width: 6vh;
+    margin-left: 3vw;
+}
+
+.rowsContainer{
+    margin-top: 4vh;
+}
+
+.modalBody {
+    font-family: 'bodyFont';
+    margin-top: 1vh;
+}
+.modalHeader {
+    font-family: titleFont;
+    font-size: 2em;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2vh;
+}
+.content {
+    padding-right: 16px;
+    font-size: 6vw;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    max-height: 82vh;
+}
+
+
+.howToGetThereIconMethod{
+    width: 7vh;
+}
+.modal{
+  height: 96vh;
+    width: 96vw;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: white;
+    z-index: 1;
+    margin: 2%;
+    opacity: 97%;
+    border-radius: 16px;
+    font-size: 50px;
+    color: black;
+    text-align: end;
+
+}
+.locationContainer{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.imgLocation{
+    max-width: 96vw;
+}
+.rowContent{
+    background-color: rgba(255, 255, 255, 0.15);
+    justify-content: center;
+    margin: 8px;
+    min-width: 35vw;
+    min-height: 35vw;
+    border-style: solid;
+    border-width: 0.1px;
+    align-items: center;
+    font-size: 7vw;
+    display: flex;
+    flex-direction: row;
+    font-family: bodyFont;
+    border-radius: 10px;
+    flex-direction: column;
+}
+
+.row{
+    margin-top: 6px;
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.modalHidden{
+  visibility: hidden;
+}
+
+.containerOurImg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ourImg{
+    object-fit: cover;
+    max-height: 22vh;
+    width: 100vw;
+    height: 100%;
+}
+
+.title{
+  font-size: 5vh;
+   font-family: titleFont;
+    margin-bottom: 0px;
+    margin-top: 2vh;
+}
+
+
+@media (orientation: landscape) {
+    .containerBtn {
+        margin-left: 4vw;
+    }
+    .containerOurImg{
+        margin-top: 0px;
+    }
+    .header {
+       margin-bottom: 0px;
+    }
+    .snoopyImg{
+        right: 0;
+        left: unset;
+        width: 30vh;
+    }
+    .registerButton{
+        min-width: 30vw;
+    }
+  .subTitle {
+  font-size: 2vw;
+  }
+  .icon{
+    width: 12vh;
+  }
+  .rowContent{
+      background-color: rgba(255, 255, 255, 0.15);
+      font-family: titleFont;
+    font-size: 3vw;
+      min-width: 10vw;
+      min-height: 10vw;
+  }
+  .bgImg2{
+    visibility: hidden;
+  }
+  .bgImg1{
+    right: 0;
+    top: 0;
+    z-index: -1;
+      height: 100%;
+      bottom: 0;
+    content: url(assets/bgImgLandscap.png);
+  }
+  .title{
+  font-size: 4.5vw;
+}
+  .mainPage{
+    height: 100%;
+    flex-direction: row;
+      max-height: 100vh;
+      overflow: auto;
+  }
+  .ourImg {
+      /*display: none;*/
+    content:url('assets/ourImgLandscape.png');
+    object-fit: contain;
+    /*max-height: 100%;
+    width: 100vw;*/
+    max-width: 50vw;
+      max-height: 100%;
+      width: auto;
+
+
+
+  }
+
+
+  .navigation{
+      display: flex;
+      flex-direction: column-reverse;
+  }
+
+  .buttonC{
+    height: 25%;
+
+  }
+}
+
+    .navigation{
+        margin-bottom: 0vh;
+        display: flex;
+        flex-direction: row-reverse;
+    }
+    .rowGetThere{
+        margin: 16px;
+    }
+    .goodToKnow{
+        padding-right: 20px;
+        margin-bottom: 12px;
+    }
+
+    @supports not (-webkit-touch-callout: none) {
+        /* CSS for other than iOS devices */
+        input {
+            accent-color: white;
+        }
+    }
+
+    @supports (-webkit-touch-callout: none) {
+        /* CSS specific to iOS devices */
+        input {
+        }
+    }
+    .day{
+        font-size: 26px;
+        font-weight: 700;
+        margin-bottom: 1vh;
+        margin-top: 2vh;
+    }
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    .containerBtn{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+</style>
+</html>

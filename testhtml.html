@@ -1,0 +1,44 @@
+<html>
+
+<button class="shiny-button">Click me!</button>
+<style>
+.shiny-button {
+  background: linear-gradient(to bottom right, #FFC600, #FF6B00);
+  color: #fff;
+  font-size: 1.2em;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  position: relative;
+}
+
+.shiny-button::before {
+  content: '';
+  position: absolute;
+  top: -60%;
+  left: -60%;
+  width: 250%;
+  height: 250%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: rotate(30deg);
+  z-index: -1;
+  animation: shiny 2s linear infinite;
+}
+
+@keyframes shiny {
+  0% {
+    transform: rotate(30deg) translate(-150%, -150%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(30deg) translate(150%, 150%);
+    opacity: 0;
+  }
+}
+
+</style>
+</html>
