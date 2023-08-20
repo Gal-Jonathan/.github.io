@@ -1,5 +1,6 @@
 <html>
   <head>
+      <link rel="icon" type="image/png" href="assets/weImage.png"/>
       <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Gal & Jonathan</title>
 <script>
@@ -37,7 +38,7 @@
       {time: '20:00', content: 'אפטר פארטי | מדורה'},
   ];
   const timeLineShabat = [{time: '8:00', content: 'ארוחת בוקר | ג׳חנון ועוד'},
-      {time: '10:00', content: 'צי׳ל שכשוכיות'}]
+      {time: '10:00', content: 'צ׳יל | שכשוכיות'}]
   const bodyTimling = [timeLineShihi, timeLineShabat];
 
 function onClick(contentObj){
@@ -243,10 +244,7 @@ function closeModal(){
 }
 </script>
   </head>
- <body style="margin: 0;
- display: flex;
- flex-direction: column;
-overflow: hidden;">
+ <body style="">
  <div class="mainPage">
   <div class= "containerOurImg" style="">
     <img class="ourImg" src="assets/weImage.png">
@@ -262,7 +260,6 @@ overflow: hidden;">
     </p>
     </div>
           <a class="registerButton" href="https://forms.gle/QtJriNrepz9LSQJ66" style="text-decoration: none;
-          padding-bottom: 1.1vh;
     color: black;" > אישור הגעה</a>
 <div class="bodyHomePage">
   <div style="" onclick="onClick({type: whatToTimling,  header: whatToTimling, body: bodyTimling})" class="rowContent">
@@ -295,9 +292,9 @@ overflow: hidden;">
  </div> !-->
 
 <div id="modal" class="modal modalHidden">
-  <div style="margin: 20px; margin-right: 4px">
+  <div class="modalContainer" style="margin: 12px; margin-right: 4px; flex-grow: 1" >
       <div class="navigation">
-          <div style="font-size: 26px; margin-bottom: 2px; font-family: sans-serif" onclick="closeModal()">
+          <div style="margin-right: 8px;font-size: 26px; margin-bottom: 2px; font-family: sans-serif" onclick="closeModal()">
               X
           </div>
       </div>
@@ -312,6 +309,10 @@ overflow: hidden;">
 </body>
 
 <style>
+    /* Force scrollbars to always be visible on iOS */
+    body {
+        -webkit-overflow-scrolling: touch;
+    }
     @font-face {
     font-family: titleFont;
     src: url(fonts/AmaticaSC-Regular.ttf);
@@ -343,7 +344,7 @@ overflow: hidden;">
   .mainPage{
     display: flex;
     flex-direction: column;
-      max-height: 100vh;
+      height: 100%;
       overflow: auto;
   }
 
@@ -363,6 +364,7 @@ overflow: hidden;">
     padding-right: 30px;
 }
 .registerButton{
+    padding-bottom: 1.1vh;
     background-color: rgba(255, 255, 255, 0.15);
     justify-content: center;
     min-width: 60vw;
@@ -376,7 +378,9 @@ overflow: hidden;">
     border-style: solid;
     border-width: 0.1px;
     border-radius: 10px;
-    padding: 4px;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 4px;
     line-height: 5vh;
 }
 
@@ -387,7 +391,7 @@ overflow: hidden;">
     justify-content: center;
 }
 .bgImg1 {
-  position: absolute;
+    position: absolute;
     width: 100%;
     z-index: -1;
     opacity: 55%;
@@ -395,7 +399,7 @@ overflow: hidden;">
 }
     .bgImg2 {
         position: absolute;
-        bottom: -2vh;
+        bottom: 0;
         width: 35vw;
         z-index: -1;
         left: -10vw;
@@ -414,6 +418,7 @@ overflow: hidden;">
 }
 
 .registerIcon{
+    padding-bottom: 2.1vh;
     width: 6vh;
     margin-left: 3vw;
 }
@@ -425,6 +430,7 @@ overflow: hidden;">
 .modalBody {
     font-family: 'bodyFont';
     margin-top: 1vh;
+    font-size: 5.9vw
 }
 .modalHeader {
     font-family: titleFont;
@@ -435,40 +441,63 @@ overflow: hidden;">
 }
 .content {
     padding-right: 16px;
-    font-size: 6vw;
+    font-size: 0.5em;
     display: flex;
     flex-direction: column;
     overflow: auto;
-    max-height: 82vh;
+    max-height: 90%;
 }
 
 
 .howToGetThereIconMethod{
     width: 7vh;
 }
-.modal{
-  height: 96vh;
-    width: 96vw;
-    position: absolute;
-    top: 0;
-    right: 0;
-    background-color: white;
-    z-index: 1;
-    margin: 2%;
-    opacity: 97%;
-    border-radius: 16px;
-    font-size: 50px;
-    color: black;
-    text-align: end;
+    @supports not (-webkit-touch-callout: none) {
+        /* CSS for other than iOS devices */
+        .modal{
+            height: 98%;
+            width: 96%;
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: white;
+            z-index: 1;
+            margin: 2%;
+            opacity: 97%;
+            border-radius: 16px;
+            font-size: 50px;
+            color: black;
+            text-align: end;
 
-}
+        }
+    }
+    @supports (-webkit-touch-callout: none) {
+        /* CSS specific to iOS devices */
+        .modal{
+            height: 98%;
+            width: 96%;
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: white;
+            z-index: 1;
+            margin: 2%;
+            opacity: 97%;
+            border-radius: 16px;
+            font-size: 50px;
+            color: black;
+            text-align: end;
+
+        }
+    }
+
 .locationContainer{
     display: flex;
     justify-content: center;
     flex-direction: column;
 }
 .imgLocation{
-    max-width: 96vw;
+    max-width: 100%;
 }
 .rowContent{
     background-color: rgba(255, 255, 255, 0.15);
@@ -517,14 +546,47 @@ overflow: hidden;">
     margin-bottom: 0px;
     margin-top: 2vh;
 }
-
+    .day{
+        font-size: 26px;
+        font-weight: 700;
+        margin-bottom: 1vh;
+        margin-top: 2vh;
+    }
 
 @media (orientation: landscape) {
+    .modalContainer{
+        display: flex;
+        flex-direction: column;
+    }
+    .day {
+        font-size: 22px;
+    }
+    .modalBody{
+        font-size: 5.9vh;
+    }
+    .content{
+        font-size: 0.3em;
+    }
+    .modalHeader {
+        font-size: 1.8em;
+    }
+    body{
+        height: 100%;
+        width: 100%;
+        position: absolute;
+    }
+    .modal {
+        height: 90%;
+        width: 90%;
+        display: flex;
+        justify-content: right;
+    }
     .containerBtn {
-        margin-left: 4vw;
+        margin-right: 8vw;
     }
     .containerOurImg{
         margin-top: 0px;
+        justify-content: left;
     }
     .header {
        margin-bottom: 0px;
@@ -536,9 +598,11 @@ overflow: hidden;">
     }
     .registerButton{
         min-width: 30vw;
+        font-size: 3vw;
+        padding-bottom: 2.1vh;
     }
   .subTitle {
-  font-size: 2vw;
+  font-size: 3vw;
   }
   .icon{
     width: 12vh;
@@ -551,33 +615,38 @@ overflow: hidden;">
       min-height: 10vw;
   }
   .bgImg2{
-    visibility: hidden;
+      right: -0vh;
+      bottom: 0;
+      width: 30vh;
+      left: unset;
   }
   .bgImg1{
+      width: unset;
     right: 0;
     top: 0;
     z-index: -1;
-      height: 100%;
       bottom: 0;
-    content: url(assets/bgImgLandscap.png);
+      height: 100%;
+    content: url(assets/bgLandscape.png);
   }
   .title{
   font-size: 4.5vw;
 }
   .mainPage{
+      width: 100vw;
     height: 100%;
     flex-direction: row;
-      max-height: 100vh;
       overflow: auto;
+      justify-content: space-between;
   }
   .ourImg {
       /*display: none;*/
     content:url('assets/ourImgLandscape.png');
     object-fit: contain;
-    /*max-height: 100%;
-    width: 100vw;*/
-    max-width: 50vw;
-      max-height: 100%;
+    max-height: unset;
+    /*width: 100vw;*/
+    max-width: 40vw;
+      height: 100%;
       width: auto;
 
 
@@ -621,13 +690,12 @@ overflow: hidden;">
         input {
         }
     }
-    .day{
-        font-size: 26px;
-        font-weight: 700;
-        margin-bottom: 1vh;
-        margin-top: 2vh;
-    }
+
     body {
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        overflow: auto;
         margin: 0;
         padding: 0;
     }
