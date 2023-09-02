@@ -3,17 +3,21 @@ var CLONDINARY_UPLOAD_PRESET = 'wps8scvk';
 var imgPreview = document.getElementById('img-preview');
 var fileUpload = document.getElementById('file-upload');
 fileUpload.addEventListener('change', function(event) {
-    var file = event.target.files[0];
     var formData = new FormData();
     var labelUpload = document.getElementById('labelUpload');
     var isMoreThen3Sec = false;
+    labelUpload.innerText = 'איזה כייף! חכה רגע, אנחנו מעלים את התמונה'
+    labelUpload.style = 'font-size: 0.65em';
+
+    event.target.files.forEach(function(file) {
+        formData.append('file', file);
+    })
+    formData.append('upload_preset', CLONDINARY_UPLOAD_PRESET);
+
     setTimeout(function() {
         isMoreThen3Sec = true;
     }, 3000);
-    labelUpload.innerText = 'איזה כייף! חכה רגע, אנחנו מעלים את התמונה'
-    labelUpload.style = 'font-size: 0.65em';
-    formData.append('file', file);
-    formData.append('upload_preset', CLONDINARY_UPLOAD_PRESET);
+    
     axios({
         url: CLOUDINARY_URL,
         method: 'POST',
