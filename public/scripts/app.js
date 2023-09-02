@@ -9,35 +9,44 @@ fileUpload.addEventListener('change', function(event) {
     labelUpload.innerText = 'איזה כייף! חכה רגע, אנחנו מעלים את התמונה'
     labelUpload.style = 'font-size: 0.65em';
     var images = event.target.files;
-    for (var index=0; index < images.length; index++) {
-        var image = images[index]
-        formData.append(`file_${index}`, image);
-    }
-    formData.append('upload_preset', CLONDINARY_UPLOAD_PRESET);
 
     setTimeout(function() {
         isMoreThen3Sec = true;
     }, 3000);
 
-    axios({
-        url: CLOUDINARY_URL,
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        data:  formData
-    }).then(function(res) {
-        if (!isMoreThen3Sec) {
-            setTimeout(function() {
+    for (var index=0; index < images.length; index++) {
+        var image = images[index]
+        formData.append('file', image);
+        formData.append('upload_preset', CLONDINARY_UPLOAD_PRESET);
+
+        axios({
+            url: CLOUDINARY_URL,
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data:  formData
+        }).then(function(res) {
+            if (images.length > index){
+                return;
+            }
+            if (!isMoreThen3Sec) {
+                setTimeout(function() {
+                    labelUpload.innerText = '?תודה רבה! עוד תמונה'
+                    labelUpload.style = 'font-size: 1em';
+                }, 1000);
+            } else {
                 labelUpload.innerText = '?תודה רבה! עוד תמונה'
                 labelUpload.style = 'font-size: 1em';
-            }, 1000);
-        } else {
-            labelUpload.innerText = '?תודה רבה! עוד תמונה'
-        }
-        console.log(res);
-    }).catch(function(err) {
-        labelUpload.innerText = 'משהו השתבש :( נסה שוב או פנה למנהל'
-        console.error(err);
-    });
+            }
+            console.log(res);
+        }).catch(function(err) {
+            labelUpload.innerText = 'משהו השתבש :( נסה שוב או פנה למנהל'
+            console.error(err);
+        });
+    }
+
+
+
+
 });
