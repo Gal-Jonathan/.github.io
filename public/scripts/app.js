@@ -8,16 +8,17 @@ fileUpload.addEventListener('change', function(event) {
     var isMoreThen3Sec = false;
     labelUpload.innerText = 'איזה כייף! חכה רגע, אנחנו מעלים את התמונה'
     labelUpload.style = 'font-size: 0.65em';
-
-    event.target.files.forEach(function(file) {
-        formData.append('file', file);
-    })
+    var images = event.target.files;
+    for (var index=0; index < images.length; index++) {
+        var image = images[index]
+        formData.append('file', image);
+    }
     formData.append('upload_preset', CLONDINARY_UPLOAD_PRESET);
 
     setTimeout(function() {
         isMoreThen3Sec = true;
     }, 3000);
-    
+
     axios({
         url: CLOUDINARY_URL,
         method: 'POST',
