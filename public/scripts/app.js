@@ -11,7 +11,7 @@ fileUpload.addEventListener('change', function(event) {
     var images = event.target.files;
     for (var index=0; index < images.length; index++) {
         var image = images[index]
-        formData.append('file', image);
+        formData.append(`file_${index}`, image);
     }
     formData.append('upload_preset', CLONDINARY_UPLOAD_PRESET);
 
