@@ -5,7 +5,7 @@ var fileUpload = document.getElementById('file-upload');
 fileUpload.addEventListener('change', function(event) {
     var file = event.target.files[0];
     var formData = new FormData();
-    var labelUpload = document.getElementById('file-upload');
+    var labelUpload = document.getElementById('labelUpload');
     var isMoreThen3Sec = false;
     setTimeout(function() {
         isMoreThen3Sec = true;
