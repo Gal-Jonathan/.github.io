@@ -11,6 +11,7 @@ fileUpload.addEventListener('change', function(event) {
         isMoreThen3Sec = true;
     }, 3000);
     labelUpload.innerText = 'איזה כייף! חכה רגע, אנחנו מעלים את התמונה'
+    labelUpload.style = 'font-size: 0.65em';
     formData.append('file', file);
     formData.append('upload_preset', CLONDINARY_UPLOAD_PRESET);
     axios({
@@ -24,6 +25,7 @@ fileUpload.addEventListener('change', function(event) {
         if (!isMoreThen3Sec) {
             setTimeout(function() {
                 labelUpload.innerText = '?תודה רבה! עוד תמונה'
+                labelUpload.style = 'font-size: 1em';
             }, 1000);
         } else {
             labelUpload.innerText = '?תודה רבה! עוד תמונה'
