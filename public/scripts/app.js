@@ -5,7 +5,7 @@ var fileUpload = document.getElementById('file-upload');
 fileUpload.addEventListener('change', function(event) {
     var file = event.target.files[0];
     var formData = new FormData();
-    var labelUpload = document.getElementById('labelUpload');
+    var labelUpload = document.getElementById('file-upload');
     var isMoreThen3Sec = false;
     setTimeout(function() {
         isMoreThen3Sec = true;
@@ -26,7 +26,7 @@ fileUpload.addEventListener('change', function(event) {
                 labelUpload.innerText = '?תודה רבה! עוד תמונה'
             }, 1000);
         } else {
-            labelUpload.innerText = 'תודה רבה! :)עוד תמונה?'
+            labelUpload.innerText = '?תודה רבה! עוד תמונה'
         }
         console.log(res);
     }).catch(function(err) {
