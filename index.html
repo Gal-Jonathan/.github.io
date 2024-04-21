@@ -273,10 +273,13 @@ function closeModal(){
     modalBodyElement.innerHTML = '';
     modal.style.visibility = 'hidden';
 }
+  setTimeout(()=>{
+    document.getElementsByClassName('mainPage')[0].style.visibility = 'visible'
+}, 300)
 </script>
   </head>
  <body style="">
- <div class="mainPage">
+ <div style="visibility: hidden" class="mainPage">
   <div class= "containerOurImg" style="">
     <img class="ourImg" src="assets/weImage.png">
 
@@ -331,7 +334,7 @@ function closeModal(){
     Gal & Jonathan
  </div> !-->
 
-<div id="modal" class="modal modalHidden">
+<div style="visibility: hidden" id="modal" class="modal modalHidden">
   <div class="modalContainer" style="margin: 12px; margin-right: 4px; flex-grow: 1" >
       <div class="navigation">
           <div style="margin-right: 8px;font-size: 26px; margin-bottom: 2px; font-family: sans-serif" onclick="closeModal()">
