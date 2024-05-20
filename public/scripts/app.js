@@ -9,6 +9,7 @@ fileUpload.addEventListener('change', function(event) {
     labelUpload.innerText = 'איזה כייף! חכה רגע, אנחנו מעלים את התמונה'
     labelUpload.style = 'font-size: 0.65em';
     var images = event.target.files;
+    fileUpload.disabled = true;
 
     setTimeout(function() {
         isMoreThen3Sec = true;
@@ -34,10 +35,12 @@ fileUpload.addEventListener('change', function(event) {
                 setTimeout(function() {
                     labelUpload.innerText = '?תודה רבה! עוד תמונה'
                     labelUpload.style = 'font-size: 1em';
+                    fileUpload.disabled = true;
                 }, 1000);
             } else {
                 labelUpload.innerText = '?תודה רבה! עוד תמונה'
                 labelUpload.style = 'font-size: 1em';
+                fileUpload.disabled = true;
             }
             console.log(res);
         }).catch(function(err) {
