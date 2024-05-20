@@ -35,7 +35,7 @@ fileUpload.addEventListener('change', function(event) {
                 setTimeout(function() {
                     labelUpload.innerText = '?תודה רבה! עוד תמונה'
                     labelUpload.style = 'font-size: 1em';
-                    fileUpload.disabled = false;
+                    fileUpload.disabled = true;
                 }, 1000);
             } else {
                 labelUpload.innerText = '?תודה רבה! עוד תמונה'
