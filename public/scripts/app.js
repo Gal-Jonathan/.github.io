@@ -35,17 +35,18 @@ fileUpload.addEventListener('change', function(event) {
                 setTimeout(function() {
                     labelUpload.innerText = '?תודה רבה! עוד תמונה'
                     labelUpload.style = 'font-size: 1em';
-                    fileUpload.disabled = true;
+                    fileUpload.disabled = false;
                 }, 1000);
             } else {
                 labelUpload.innerText = '?תודה רבה! עוד תמונה'
                 labelUpload.style = 'font-size: 1em';
-                fileUpload.disabled = true;
+                fileUpload.disabled = false;
             }
             console.log(res);
         }).catch(function(err) {
             labelUpload.innerText = 'משהו השתבש :( נסה שוב או פנה למנהל'
             console.error(err);
+            fileUpload.disabled = false;
         });
     }
 
