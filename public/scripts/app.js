@@ -6,7 +6,7 @@ fileUpload.addEventListener('change', function(event) {
     var formData = new FormData();
     var labelUpload = document.getElementById('labelUpload');
     var isMoreThen3Sec = false;
-    labelUpload.innerText = 'איזה כייף! חכה רגע, אנחנו מעלים את התמונה'
+    labelUpload.innerText = ' יש! לא לסגור אותי עדיין, אני מעלה את התמונות'
     labelUpload.style = 'font-size: 0.65em';
     var images = event.target.files;
     fileUpload.disabled = true;
@@ -38,7 +38,7 @@ fileUpload.addEventListener('change', function(event) {
                     fileUpload.disabled = false;
                 }, 1000);
             } else {
-                labelUpload.innerText = '?תודה רבה! עוד תמונה'
+                labelUpload.innerText = '?זהו סיימתי:)  עוד תמונה'
                 labelUpload.style = 'font-size: 1em';
                 fileUpload.disabled = false;
             }
