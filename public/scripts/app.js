@@ -1,4 +1,5 @@
 var CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dqtyj8zwp/upload';
+var CLOUDINARY_URL_VIDEO = 'https://api.cloudinary.com/v1_1/dqtyj8zwp/video/upload';
 var CLONDINARY_UPLOAD_PRESET = 'wps8scvk';
 var imgPreview = document.getElementById('img-preview');
 var fileUpload = document.getElementById('file-upload');
@@ -17,11 +18,20 @@ fileUpload.addEventListener('change', function(event) {
 
     for (var index=0; index < images.length; index++) {
         var image = images[index]
+        var urlByTypeAsset = "";
         formData.append('file', image);
         formData.append('upload_preset', CLONDINARY_UPLOAD_PRESET);
-
+        if (file.type.startsWith('image/')) {
+            urlByTypeAsset = CLOUDINARY_URL;
+        } else if (file.type.startsWith('video/')) {
+            // Handle video file
+            urlByTypeAsset = CLOUDINARY_URL_VIDEO;
+        } else {
+            console.log('This file is neither an image nor a video:', file);
+            // Handle other file types
+        }
         axios({
-            url: CLOUDINARY_URL,
+            url: urlByTypeAsset,
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
