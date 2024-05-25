@@ -21,7 +21,7 @@ fileUpload.addEventListener('change', function(event) {
         var urlByTypeAsset = "";
         formData.append('file', asset);
         formData.append('upload_preset', CLONDINARY_UPLOAD_PRESET);
-        if (file.type.startsWith('image/')) {
+        if (asset.type.startsWith('image/')) {
             urlByTypeAsset = CLOUDINARY_URL;
         } else if (asset.type.startsWith('video/')) {
             // Handle video file
