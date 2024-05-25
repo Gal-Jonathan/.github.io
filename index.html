@@ -32,8 +32,8 @@
   setTimeout(() => {
       const registerButton = document.getElementById('register');
       const uploadImgContainer = document.getElementById('uploadImgContainer');
-      const isDebug = urlParams.get('debug');
-      if (isDebug) {
+      const isUploadPicMode = true;
+      if (isUploadPicMode) {
           registerButton.style.display = 'none';
           uploadImgContainer.style.display = 'flex';
       } else {
