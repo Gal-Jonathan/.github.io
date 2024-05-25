@@ -17,13 +17,13 @@ fileUpload.addEventListener('change', function(event) {
     }, 3000);
 
     for (var index=0; index < images.length; index++) {
-        var image = images[index]
+        var asset = images[index]
         var urlByTypeAsset = "";
-        formData.append('file', image);
+        formData.append('file', asset);
         formData.append('upload_preset', CLONDINARY_UPLOAD_PRESET);
         if (file.type.startsWith('image/')) {
             urlByTypeAsset = CLOUDINARY_URL;
-        } else if (file.type.startsWith('video/')) {
+        } else if (asset.type.startsWith('video/')) {
             // Handle video file
             urlByTypeAsset = CLOUDINARY_URL_VIDEO;
         } else {
