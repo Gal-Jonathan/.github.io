@@ -276,13 +276,15 @@ function closeModal(){
 }
   setTimeout(()=>{
     document.getElementsByClassName('mainPage')[0].style.visibility = 'visible'
+document.getElementsByClassName("ourImg")[0].style.visibility = 'visible'
+    ourImg
 }, 300)
 </script>
   </head>
  <body style="">
  <div style="visibility: hidden" class="mainPage">
   <div class= "containerOurImg" style="">
-    <img class="ourImg" src="assets/weImage.png">
+    <img class="ourImg" style="visibility: hidden" src="assets/weImage.png">
 
   </div>
   <div class="containerBtn" id="cntBtn">
